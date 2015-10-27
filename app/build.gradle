@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion androidSdkTarget
+    buildToolsVersion androidBuildTools
+
+    dexOptions {
+        javaMaxHeapSize dexJavaMaxHeapSize
+        preDexLibraries dexPreDexLibraries
+        incremental dexIncremental
+    }
+
+    defaultConfig {
+        applicationId "io.kaeawc.vcrapp"
+        minSdkVersion androidSdkMinimum
+        targetSdkVersion androidSdkTarget
+        versionCode appVersionCode
+        versionName appVersionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    productFlavors {
+        store {
+            // No ability to choose mock core modules
+        }
+        mock {
+            // Ability to toggle mock core modules
+            applicationId "io.kaeawc.vcrapp.mock"
+        }
+        fast {
+            // Allows for faster builds
+            applicationId "io.kaeawc.vcrapp.fast"
+            minSdkVersion androidSdkMinimumFast
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude "META-INF/LICENSE"
+        exclude "META-INF/NOTICE"
+        exclude "META-INF/license"
+        exclude "META-INF/notice"
+        exclude "META-INF/LICENSE.txt"
+        exclude "META-INF/license.txt"
+        exclude "META-INF/NOTICE.txt"
+        exclude "META-INF/notice.txt"
+        exclude 'LICENSE.txt'
+    }
+
+    lintOptions {
+        abortOnError lintAbortOnError
+        checkReleaseBuilds lintCheckReleaseBuilds
+        absolutePaths lintAbsolutePaths
+        checkAllWarnings lintCheckAllWarnings
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = unitTestsReturnDefaultValues
+    }
+}
+
+configurations {
+    storeDebugCompile
+    mockDebugCompile
+    fastDebugCompile
+    storeReleaseCompile
+    mockReleaseCompile
+    fastReleaseCompile
+}
+
+dependencies {
+
+    // Google Support Library
+    compile "com.android.support:appcompat-v7:${androidSupportLibraryVersion}"
+
+    compile 'org.apache.commons:commons-lang3:3.4'
+
+    // Http
+    compile "com.squareup.retrofit:retrofit:2.0.0-beta2"
+    compile "com.squareup.retrofit:converter-gson:2.0.0-beta2"
+    compile "com.squareup.retrofit:retrofit-mock:2.0.0-beta2"
+    compile "com.squareup.okhttp:okhttp:2.5.0"
+
+    // EventBus
+    compile 'de.greenrobot:eventbus:2.4.0'
+
+    // JSON parsing
+    compile "com.google.code.gson:gson:2.4"
+
+    // Logging
+    compile "com.jakewharton.timber:timber:4.1.0"
+
+    // Unit Testing
+    testCompile "junit:junit:${junitVersion}"
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VcrApp</string>
+    <string name="get_ip_address">Get IP Address</string>
+    <string name="mock_mode">Mock Mode</string>
+</resources>

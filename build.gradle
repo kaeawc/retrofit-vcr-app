@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// Android SDK Range
+ext.androidSdkMinimum = 15
+ext.androidSdkMinimumFast = 21
+ext.androidSdkTarget = 23
+
+// Android Build Tools
+ext.androidBuildTools = "23.0.1"
+
+// App Version Information
+ext.appVersionCode = 1
+ext.appVersionName = "1.0.0"
+
+// Dependency Versions
+ext.androidSupportLibraryVersion = "23.1.0"
+ext.junitVersion = "4.12"
+
+// Test Options
+ext.unitTestsReturnDefaultValues = true
+ext.unitTestJvmArgs = "-ea -noverify"
+
+// Lint Options
+ext.lintAbortOnError = false
+ext.lintCheckReleaseBuilds = false
+ext.lintAbsolutePaths = false
+ext.lintCheckAllWarnings = true
+
+// Dex Options
+ext.dexJavaMaxHeapSize = "2g"
+ext.dexPreDexLibraries = true
+ext.dexIncremental = false
